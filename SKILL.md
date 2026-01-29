@@ -3,9 +3,7 @@ name: bible-api-lookup
 description: Query and display Bible verses, scripture references, biblical passages, and commentary. Supports 1000+ translations in 100+ languages via the free HelloAO Bible API.
 version: 1.0.0
 license: MIT
-author:
-  name: yellowcandle
-  github: yellowcandle
+author: yellowcandle
 tags:
   - bible
   - scripture
