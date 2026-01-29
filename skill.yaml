@@ -1,0 +1,172 @@
+name: bible-api-lookup
+description: Query and display Bible verses, scripture references, biblical passages, and commentary. Supports 1000+ translations in 100+ languages via the free HelloAO Bible API.
+version: 1.0.0
+author: yellowcandle
+tags:
+  - bible
+  - scripture
+  - religion
+  - api
+  - lookup
+  - verses
+  - commentary
+
+content: |
+  # Bible API Lookup
+
+  ## Overview
+
+  Query and display Bible text from the free HelloAO Bible API (https://bible.helloao.org). No API key required. Supports 1000+ translations in 100+ languages, commentaries, and cross-references.
+
+  ## When to Use
+
+  - User requests a Bible verse (e.g., "John 3:16", "Genesis 1:1-5")
+  - User asks to read a chapter (e.g., "Read Psalm 23")
+  - User wants scripture in a specific language or translation
+  - User asks about Bible commentary on a passage
+
+  ## Quick Reference
+
+  | Task | Endpoint |
+  |------|----------|
+  | List translations | `GET /api/available_translations.json` |
+  | List books | `GET /api/{translation}/books.json` |
+  | Get chapter | `GET /api/{translation}/{book}/{chapter}.json` |
+  | List commentaries | `GET /api/available_commentaries.json` |
+  | Get commentary | `GET /api/c/{commentary}/{book}/{chapter}.json` |
+
+  **Base URL:** `https://bible.helloao.org`
+
+  ## Parsing Verse References
+
+  Parse user input into components: `{book} {chapter}:{startVerse}-{endVerse}`
+
+  | User Input | Book ID | Chapter | Verses |
+  |------------|---------|---------|--------|
+  | "John 3:16" | JHN | 3 | 16 |
+  | "Genesis 1:1-5" | GEN | 1 | 1-5 |
+  | "1 Corinthians 13" | 1CO | 13 | all |
+  | "Psalm 23" | PSA | 23 | all |
+  | "Rev 21:1-4" | REV | 21 | 1-4 |
+
+  **Book ID mapping:** See book-ids.md for complete list. Common patterns:
+  - Single-word books: First 3 letters (GENesis, EXOdus, PSAlms)
+  - Numbered books: Number + 2 letters (1SA, 2KI, 1CO, 2TI)
+  - Exceptions: JHN (John), PHP (Philippians), JDG (Judges)
+
+  ## Workflow
+
+  ### 1. Detect Language & Select Translation
+
+  Detect user's prompt language, then select appropriate translation:
+
+  | Language | Code | Recommended Translation |
+  |----------|------|------------------------|
+  | English | eng | BSB (Berean Standard Bible) |
+  | Spanish | spa | RVR1960 or NVI |
+  | German | deu | DELUT (Luther) |
+  | French | fra | LSG (Louis Segond) |
+  | Portuguese | por | ARC or NVI-PT |
+  | Chinese | zho | CUV (Chinese Union) |
+
+  If unsure, fetch `/api/available_translations.json` and filter by `language` field.
+
+  ### 2. Fetch Chapter
+
+  ```
+  GET https://bible.helloao.org/api/{translation}/{bookId}/{chapter}.json
+  ```
+
+  Example: `https://bible.helloao.org/api/BSB/JHN/3.json`
+
+  ### 3. Extract Verses
+
+  Response structure:
+  ```typescript
+  {
+    chapter: {
+      number: number,
+      content: ChapterContent[],  // verses, headings, line breaks
+      footnotes: Footnote[]
+    }
+  }
+
+  // ChapterContent types:
+  { type: "verse", number: number, content: (string | FormattedText | FootnoteRef)[] }
+  { type: "heading", content: string[] }
+  { type: "line_break" }
+  ```
+
+  To extract specific verses, filter `content` array for `type: "verse"` where `number` matches.
+
+  ### 4. Format Output
+
+  **Basic verse:**
+  ```
+  **John 3:16 (BSB)**
+  For God so loved the world that He gave His one and only Son, that everyone who believes in Him shall not perish but have eternal life.
+  ```
+
+  **Multiple verses:**
+  ```
+  **Genesis 1:1-3 (BSB)**
+  1 In the beginning God created the heavens and the earth.
+  2 Now the earth was formless and void...
+  3 And God said, "Let there be light," and there was light.
+  ```
+
+  **Handle special content:**
+  - `wordsOfJesus: true` - Optionally note these are Jesus' words
+  - `poem: number` - Poetry with indentation level
+  - `noteId` - Reference footnote from `footnotes` array
+  - `heading` - Display as section header
+
+  ## Commentary Lookup
+
+  For deeper study, fetch commentary:
+
+  ```
+  GET https://bible.helloao.org/api/c/{commentary}/{book}/{chapter}.json
+  ```
+
+  **Available commentaries:**
+  - `adam-clarke` - Adam Clarke Bible Commentary (comprehensive)
+  - `tyndale` - Tyndale Bible Commentary (includes profiles)
+
+  Example: `https://bible.helloao.org/api/c/adam-clarke/GEN/1.json`
+
+  Commentary response has same verse structure plus optional `introduction` field.
+
+  ## Common Mistakes
+
+  | Mistake | Fix |
+  |---------|-----|
+  | Using "John" instead of "JHN" | Use 3-letter USFM book IDs |
+  | Requesting verse-level endpoint | API is chapter-level; filter verses client-side |
+  | Ignoring `textDirection` | Some translations are RTL (Hebrew, Arabic) |
+  | Missing footnotes | Check `noteId` references in verse content |
+
+  ## Example: Full Lookup
+
+  User: "What does John 3:16 say?"
+
+  1. Parse: book=JHN, chapter=3, verse=16
+  2. Detect: English prompt → use BSB
+  3. Fetch: `https://bible.helloao.org/api/BSB/JHN/3.json`
+  4. Extract: Find `{ type: "verse", number: 16 }` in response
+  5. Format and display verse with attribution
+
+  ## Audio Links
+
+  Chapters include audio links in `thisChapterAudioLinks`:
+  ```json
+  {
+    "gilbert": "https://openbible.com/audio/gilbert/BSB_01_Gen_001_G.mp3",
+    "hays": "https://openbible.com/audio/hays/BSB_01_Gen_001_H.mp3"
+  }
+  ```
+
+  Provide these when user requests audio or read-aloud.
+
+resources:
+  - book-ids.md
