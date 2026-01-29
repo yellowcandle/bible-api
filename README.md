@@ -56,6 +56,8 @@ The skill automatically detects your language and selects appropriate translatio
 
 This skill uses the [HelloAO Bible API](https://bible.helloao.org) (free, no key required).
 
+See the [HelloAO API Documentation](https://bible.helloao.org/docs/) for more details.
+
 ### Available Endpoints
 
 | Task | Endpoint |
