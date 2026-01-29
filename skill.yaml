@@ -11,6 +11,9 @@ tags:
   - verses
   - commentary
 
+resources:
+  - book-ids.md
+
 content: |
   # Bible API Lookup
 
@@ -167,6 +170,3 @@ content: |
   ```
 
   Provide these when user requests audio or read-aloud.
-
-resources:
-  - book-ids.md

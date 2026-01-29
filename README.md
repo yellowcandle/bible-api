@@ -5,6 +5,11 @@
 
 Query and display Bible verses, scripture references, biblical passages, and commentary. Supports 1000+ translations in 100+ languages via the free HelloAO Bible API - no API key required.
 
+## Prerequisites
+
+- Node.js 14+ (for `npx` command)
+- An AI agent that supports skills.sh format (Claude Code, Cursor, Windsurf, etc.)
+
 ## Installation
 
 ```bash
@@ -76,7 +81,7 @@ The skill uses 3-letter USFM book IDs. See `book-ids.md` for the complete list o
 
 ```
 bible-api-skill/
-├── skill.yaml        # Main skill definition with instructions
+├── skill.yaml        # Main skill definition with instructions (canonical format)
 ├── book-ids.md       # USFM book ID reference table
 └── README.md         # This file
 ```

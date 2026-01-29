@@ -1,5 +1,9 @@
 # Bible Book IDs (USFM Standard)
 
+## Scope
+
+This list covers the 66 books of the Protestant canon. The HelloAO API may include additional books (Apocrypha/Deuterocanonical) not listed here.
+
 ## Old Testament
 
 | # | ID | Name | Aliases |
