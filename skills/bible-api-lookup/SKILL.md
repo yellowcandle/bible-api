@@ -59,7 +59,7 @@ Detect user's prompt language, then select appropriate translation:
 | German | deu | DELUT (Luther) |
 | French | fra | LSG (Louis Segond) |
 | Portuguese | por | ARC or NVI-PT |
-| Chinese | zho | CUV (Chinese Union) |
+| Chinese | cmn | cmn_cuv (Chinese Union Traditional), cmn_cu1 (Simplified) |
 
 If unsure, fetch `/api/available_translations.json` and filter by `language` field.
 

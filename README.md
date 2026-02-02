@@ -55,7 +55,7 @@ The skill automatically detects your language and selects appropriate translatio
 | German | DELUT (Luther) |
 | French | LSG (Louis Segond) |
 | Portuguese | ARC or NVI-PT |
-| Chinese | CUV (Chinese Union) |
+| Chinese | cmn_cuv (Traditional) or cmn_cu1 (Simplified) |
 
 ## API Reference
 
