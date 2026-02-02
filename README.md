@@ -13,7 +13,7 @@ Query and display Bible verses, scripture references, biblical passages, and com
 ## Installation
 
 ```bash
-npx skills add yellowcandle/bible-api-skill
+npx skills add yellowcandle/bible-api
 ```
 
 ## Features
