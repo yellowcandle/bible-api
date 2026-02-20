@@ -75,15 +75,17 @@ See the [HelloAO API Documentation](https://bible.helloao.org/docs/) for more de
 
 ### Book IDs
 
-The skill uses 3-letter USFM book IDs. See `book-ids.md` for the complete list of Bible books and their identifiers.
+The skill uses 3-letter USFM book IDs. See `skills/bible-api-lookup/book-ids.md` for the complete list of Bible books and their identifiers.
 
 ## File Structure
 
 ```
-bible-api-skill/
-├── skill.yaml        # Main skill definition with instructions (canonical format)
-├── book-ids.md       # USFM book ID reference table
-└── README.md         # This file
+bible-api/
+├── README.md                              # This file
+└── skills/
+    └── bible-api-lookup/
+        ├── SKILL.md                       # Main skill definition with instructions
+        └── book-ids.md                    # USFM book ID reference table
 ```
 
 ## Commentaries

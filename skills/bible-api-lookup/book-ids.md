@@ -99,8 +99,19 @@ This list covers the 66 books of the Protestant canon. The HelloAO API may inclu
 4. Return 3-letter USFM ID
 ```
 
-**Numbered book pattern:** `{number}{space}{name}` → `{number}{first 2 letters}`
-- 1 Samuel → 1SA
-- 2 Chronicles → 2CH  
-- 1 Corinthians → 1CO
-- 3 John → 3JN
+**Numbered book pattern:** `{number}{space}{name}` → `{number}{abbreviation}`
+
+The abbreviation is **not** a simple substring rule — always use the lookup table above. Common examples:
+
+| Input | ID | Notes |
+|-------|----|-------|
+| 1 Samuel | 1SA | first 2 letters of "Samuel" |
+| 2 Chronicles | 2CH | first 2 letters of "Chronicles" |
+| 1 Corinthians | 1CO | first 2 letters of "Corinthians" |
+| 1 Thessalonians | 1TH | first 2 letters of "Thessalonians" |
+| 1 Timothy | 1TI | first 2 letters of "Timothy" |
+| 1 Peter | 1PE | first 2 letters of "Peter" |
+| 3 John | 3JN | abbreviation "JN", not "JO" |
+| 1 John | 1JN | abbreviation "JN", not "JO" |
+| 2 Kings | 2KI | abbreviation "KI", not "KG" |
+| Philippians | PHP | irregular — not "PH" |
