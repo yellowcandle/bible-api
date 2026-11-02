@@ -7,7 +7,7 @@ Query and display Bible verses, scripture references, biblical passages, and com
 
 ## Prerequisites
 
-- Node.js 14+ (for `npx` command)
+- Node.js 22.20+ (for `npx skills` command)
 - An AI agent that supports skills.sh format (Claude Code, Cursor, Windsurf, etc.)
 
 ## Installation
