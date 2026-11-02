@@ -18,3 +18,6 @@ Thumbs.db
 tmp/
 temp/
 .claude/
+
+# Amp orb portals
+.amp/portals/*
